@@ -1,4 +1,4 @@
-﻿# DP Setup
+# DP Setup
 #6-10-22
 
 #CSV of devices format has this as the first line then device names on supsequent lines, Quotes and commas are optional after the initial "header" line
@@ -20,8 +20,7 @@ Function Setup-DistributionPoints{
     #alternatively $dpGroupID = "{########-####-####-####-###########}"
 
     Import-Csv -Path $csvPath | ForEach-Object{
-        
-        
+    
         try{$Device = Get-CMDevice -Name $_.Device -fast } 
         catch {
             $path = $logPath
@@ -31,9 +30,9 @@ Function Setup-DistributionPoints{
             Remove-PSDrive -Name Z -PSProvider filesystem
             return
          }
-        $FQDN = $Device.name + $domain
-
+         
         #Give device site system role.
+        $FQDN = $Device.name + $domain
         try{New-CMSiteSystemServer -SiteSystemServerName $FQDN -SiteCode $siteCode -AccountName $null}
         catch{
             write-host "system is already a site server"
@@ -43,7 +42,6 @@ Function Setup-DistributionPoints{
         #Set to drives of your preference
         $Drives = @("\C$","\E$")
         Foreach($Drive in $Drives){
-
             $path ="\\"+ $Device.Name + $Drive
             try{New-PSDrive -Name Z -PSProvider filesystem -Root $path -ErrorAction Stop}
             catch{
@@ -54,7 +52,6 @@ Function Setup-DistributionPoints{
                 Remove-PSDrive -Name Z -PSProvider filesystem
                 return
             }
-
             if(-not (test-path Z:\NO_SMS_ON_DRIVE.SMS)){
                 new-item -ItemType file -Path Z:\ -Name NO_SMS_ON_DRIVE.SMS -Force
             }
@@ -73,7 +70,6 @@ Function Setup-DistributionPoints{
             write-host "system already has DP role"
         }
     
-        
         #Continue to adding pull role
         #enter FQDNs of your "source" distribution points the pull DP will get content from 
         $SourceDPs = @("SCCMDP01@domain.com","SCCMDP02@domain.com","SCCMDP03@domain.com")
