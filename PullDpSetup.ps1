@@ -65,7 +65,10 @@ Function Setup-DistributionPoints{
         $Schedule = New-CMSchedule  -DayOfWeek Sunday -Start "1/1/2023 12:00 AM" -RecurCount 1 
         $SiteSystemServer = Get-CMSiteSystemServer -SiteSystemServerName $FQDN
         $Password = ConvertTo-SecureString $password -AsPlainText -Force
-        try{$AddDP = Add-CMDistributionPoint -InputObject $SiteSystemServer -Description $_.Description -InstallInternetServer -EnableBranchCache -EnablePxe -EnableUnknownComputerSupport -PxePassword $Password -EnableContentValidation -ContentValidationSchedule  $Schedule -ClientConnectionType Intranet -CertificatePath $certPath -CertificatePassword $Password -Force -ErrorAction stop | Set-CMDistributionPoint -ClientCommunicationType Https -AddBoundaryGroupName $_.Description -ErrorAction Stop} 
+        try{$AddDP = Add-CMDistributionPoint -InputObject $SiteSystemServer -Description $_.Description -InstallInternetServer -EnableBranchCache`
+        -EnablePxe -EnableUnknownComputerSupport -PxePassword $Password -EnableContentValidation -ContentValidationSchedule  $Schedule `
+        -ClientConnectionType Intranet -CertificatePath $certPath -CertificatePassword $Password -Force -ErrorAction stop
+        | Set-CMDistributionPoint -ClientCommunicationType Https -AddBoundaryGroupName $_.Description -ErrorAction Stop} 
         catch{
             write-host "system already has DP role"
         }
