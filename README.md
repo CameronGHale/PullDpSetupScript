@@ -1,6 +1,7 @@
 # PullDpSetupScript
 Powershell script to automate the setup of new pull distribution points in SCCM.
 5-26-23
+
 #Requirements:
 1. Setting variables to work with your environment. These are located near the top of the script function.
   #This is the SCCM workstation Authorization certificate with private key. 
