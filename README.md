@@ -6,20 +6,20 @@ Powershell script to automate the setup of new pull distribution points in SCCM.
 1. Setting variables to work with your environment. These are located near the top of the script function.
   #This is the SCCM workstation Authorization certificate with private key. 
   -$certPath = "\\Server\drive$\path\to\cert.pfx"
-  #your password for said certificate
+  #Workstation certificate password
   -$password = "certPass01"
   #Local domain
   -$domain = "site.example"
   #SCCM site code
   -$siteCode = "SM1"
-  #location you would like to keep the failure logs to review after running the script.
+  #Location you would like to keep the failure logs to review after running the script.
   -$logPath = "C:\temp\Setup-DistributionPoints.log"
-  #if you have multiple DP groups you can add variables OR use the dpGroupID varient of this (sometimes I have better luck using the IDs).
+  #If you have multiple DP groups you can add variables OR use the dpGroupID varient of this (sometimes I have better luck using the IDs).
   -$dpGroupName = "Pull Distribution Points"
 
 2. Creating your CSV of new pull distribution points to set-up:
   #Note here I am using the boundary group name as the description!
-  -Make a new note pad paste the following:
+  -Make a new notepad paste the following:
 
   "Device","Description"
   "MyNewDP01","Boundary_Group_Name1"
