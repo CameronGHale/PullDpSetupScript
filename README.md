@@ -1,4 +1,5 @@
 # PullDpSetupScript
+```
 Powershell script to automate the setup of new pull distribution points in SCCM.
 5-26-23
 
@@ -36,3 +37,4 @@ Powershell script to automate the setup of new pull distribution points in SCCM.
       Set-DistributionPoints -csvPath "\\path\to\file.csv"
       
 5. Run this script while connected to the SCCM site with your populated variables and CSV file. 
+```
