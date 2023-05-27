@@ -6,19 +6,16 @@
 #
 #
 Function Setup-DistributionPoints{
+    #Set these variables for your environment 
     param(
-    [String][Parameter(Mandatory=$true, Position=1)] $csvPath
+    [String][Parameter(Mandatory)] $csvPath,
+    [String] $certPath = "\\Server\drive$\path\to\cert.pfx",
+    [String] $domain = "site.example",
+    [String] $siteCode = "SCM1",
+    [String] $password = "certPass01",
+    [String] $logPath = "C:\temp\Setup-DistributionPoints.log",
+    [String] $dpGroupName = "Pull Distribution Points" 
     )
-
-    #These variables need to be set once for your environment
-    $certPath = "\\Server\drive$\path\to\cert.pfx"
-    $domain = "site.example"
-    $siteCode = "SCM1"
-    $password = "certPass01"
-    $logPath = "C:\temp\Setup-DistributionPoints.log"
-    $dpGroupName = "Pull Distribution Points"
-    #alternatively $dpGroupID = "{########-####-####-####-###########}"
-
     Import-Csv -Path $csvPath | ForEach-Object{
     
         try{$Device = Get-CMDevice -Name $_.Device -fast } 
